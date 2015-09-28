@@ -1,0 +1,55 @@
+import mechanize
+import cookielib
+
+def passwordlogin(form):
+   return form.attrs.get('id', None) == 'passwordlogin'
+
+def newjob(form):
+  return form.attrs.get('id', None) == 'newjob'
+
+def login_auth(form):
+  return form.attrs.get('id', None) == 'form-openid'
+
+br = mechanize.Browser()
+br.set_handle_equiv(True)
+br.set_handle_gzip(True)
+br.set_handle_redirect(True)
+br.set_handle_referer(True)
+br.set_handle_robots(False)
+
+   #br.set_debug_http(True)
+   #br.set_debug_responses(True)
+   # Cookie Jar
+cj = cookielib.LWPCookieJar()
+br.set_cookiejar(cj)
+
+br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
+br.addheaders = [('User-agent', 'Chrome')]
+br.open('https://auth.hasgeek.com/login')
+br.select_form(predicate = passwordlogin)
+br['username'] = 'saranya@venturesity.com'
+br['password'] = 'Venturesity@123'
+br.submit()
+br.open('https://hasjob.co/new')
+br.select_form(predicate=newjob)
+br['job_headline'] = 'test job'
+br['job_type'] = ['1']
+br['job_category'] = ['3']
+br['job_location'] = 'bangalore'
+br['job_description'] = "test test test test test test test test test test test test test test test test test test test test test test test test test "
+br['job_pay_type'] = ['2']
+br['job_pay_currency'] = ['INR']
+br['job_pay_cash_min'] = str(120000)
+br['job_pay_cash_max'] = str(140000)
+br['job_how_to_apply'] = 'Send resume to specified email.'
+br['company_name'] = 'CVB private limited'
+br['company_url'] = "Google.com"
+br['poster_email'] = 'saranya@venturesity.com'
+br.submit()
+br.select_form(nr=0)
+br.submit()
+br.select_form(nr=0)
+br.find_control(type="checkbox").selected = True
+
+
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+<form method="POST">
+     Event Title:<input type="text" name="event_title"><br>
+     Mobile Number:<input type="text" name="mobile_no"><br>
+     Login ID:<input type="text" name="loginid"><br>
+     Password:<input type="text" name="password"><br>
+     Venue:<input type="text" name="venue"><br>
+     Address Line 1:<input type="text" name="address_line_1"><br>
+     Address Line 2:<input type="text" name="address_line_2"><br>
+     state:<input type="text" name="state"><br>
+     City:<input type="text" name="city"><br>
+     Country:<input type="text" name="country"><br>
+     Postal:<input type="text" name="postal"><br>
+     Start Date(MM/DD/YYYY):<input type="text" name="start_date"><br>
+     Start Time(__:__am/pm):<input type="text" name="start_time"><br>
+     End Date(MM/DD/YYYY):<input type="text" name="end_date"><br>
+     End Time(__:__am/pm):<input type="text" name="end_time"><br>
+     Event Description:<br><textarea name="event_description" rows="5" cols="50"></textarea><br>
+     Organizer Name:<input type="text" name="organizer_name"><br>
+     Organizer Description:<br><textarea name="organizer_description" rows="5" cols="50"></textarea><br>
+     Company Website:<input type="text" name="comp_website"><br>
+     Event Type:<input type="text" name="event_type"><br> 
+    
+    EventBrite<input type="checkbox" value="eventbrite" name="check"><br>
+    MeraEvent<input type="checkbox" value="meraevent" name="check"><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

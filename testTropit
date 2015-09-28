@@ -1,0 +1,39 @@
+import mechanize
+import cookielib
+
+def step1(form):
+  return form.attrs.get('id', None) == 'step1'
+
+def step2(form):
+  return form.attrs.get('id', None) == 'step2'
+
+br = mechanize.Browser()
+br.set_handle_equiv(True)
+br.set_handle_gzip(True)
+br.set_handle_redirect(True)
+br.set_handle_referer(True)
+br.set_handle_robots(False)
+cj = cookielib.LWPCookieJar()
+br.set_cookiejar(cj)
+br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
+br.addheaders = [('User-agent', 'Chrome')]
+br.open('http://jobs.trovit.co.in/index.php/cod.publish_your_ad_login/login.1')
+br.select_form(nr = 0)
+br['email'] = 'saranya@venturesity.com'
+br['password'] = 'Venturesity@123'
+br.submit()
+br.open('http://jobs.trovit.co.in/recruitment')
+br.select_form(predicate = step1)
+br['email'] = 'saranya@venturesity.com'
+br['title'] = "ABC" + " is looking for " + "FGH" + " in " + "outer space"
+br['content'] = "test test test test test test test test test test test test test test test test test test test test test test test test test test "
+br['location'] = "Bangalore"
+br.select_form(predicate=step2)
+br['salary'] = str(((30000)/2)/64)
+br['contract'] = ['1744']
+br['workingHours'] = ['1752']
+br['experience'] = ['4522'] 
+br['vacants'] = ['10']
+br.submit()
+
+

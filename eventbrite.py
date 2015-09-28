@@ -1,0 +1,78 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+import time
+
+def eventbrite(Event_Post):
+    driver = webdriver.Firefox()
+    mouse = webdriver.ActionChains(driver) 
+    #logging in
+    driver.get("https://www.eventbrite.com/login/")
+
+    element = driver.find_element_by_name("email")
+    element.send_keys(Event_Post.login_id)
+    element = driver.find_element_by_name("password")
+    element.send_keys(Event_Post.password)
+    driver.find_element_by_xpath("//input[@value = 'Log in']").click()
+    time.sleep(5)
+    driver.get('https://www.eventbrite.com/create')
+    time.sleep(10)
+    element = driver.find_element_by_name('group-details-name')
+    element.send_keys(Event_Post.event_title)
+    element = driver.find_element_by_id('location-name-input')
+    location = str(Event_Post.venue) + ',' +str(Event_Post.address_line_1) + ',' +str(Event_Post.address_line_2) + ',' +str(Event_Post.state) + ',' +str(Event_Post.city) + ',' +str(Event_Post.country)
+    element.send_keys(location)
+    element = driver.find_element_by_xpath('//div[@id = "event_details_date"]')
+    element2 = element.find_element_by_xpath('.//div[@class = "js-dtp-eventdatetimepair"]')
+    element3 = element2.find_element_by_xpath('.//div[@class = "js-dtp-datetimepairpicker ui-date-time-pair-picker"]')
+    element4 = element3.find_element_by_xpath('.//div[@class = "js-dtp-startdatetimepicker datetime_input g-cell l-block-1 ui-date-time-picker"]')
+    element5 = element4.find_element_by_xpath('.//div[@class = "l-block-1"]')
+    element6 = element5.find_element_by_xpath('.//div[@class = "js-dtp-datepickerbackbone ui-event-datetime"]')
+    element7 = element6.find_element_by_xpath('.//input[@type = "text"]')
+    element7.clear()
+    element7.send_keys(Event_Post.start_date)
+    element8 = element5.find_element_by_xpath('.//div[@class = "js-dtp-timepicker js-timepicker create_select_time_field ui-event-datetime timepicker"]')
+    element9 = element8.find_element_by_xpath('.//input[@type = "text"]')
+    element9.clear()
+    element9.send_keys(Event_Post.start_time)
+    element10 = element3.find_element_by_xpath('.//div[@class = "js-dtp-enddatetimepicker datetime_input g-cell l-block-1 ui-date-time-picker"]')
+    element11 = element10.find_element_by_xpath('.//div[@class = "l-block-1"]')
+    element12 = element11.find_element_by_xpath('.//div[@class = "js-dtp-datepickerbackbone ui-event-datetime"]')
+    element13 = element12.find_element_by_xpath('.//input[@type = "text"]')
+    element13.clear()
+    element13.send_keys(Event_Post.end_date)
+    element14 = element11.find_element_by_xpath('.//div[@class = "js-dtp-timepicker js-timepicker create_select_time_field ui-event-datetime timepicker"]')
+    element15 = element14.find_element_by_xpath('.//input[@type = "text"]')
+    element15.clear()
+    element15.send_keys(Event_Post.end_time)
+
+    driver.switch_to_frame(driver.find_element_by_tag_name("iframe"))
+    elem = driver.find_element_by_xpath('/html/body') 
+    elem.send_keys((Event_Post.event_description).decode('utf-8'))
+    driver.switch_to_default_content()
+    element = driver.find_element_by_id('create-ticket-free-button')
+    element.click()
+    time.sleep(2)
+    element = driver.find_element_by_xpath('.//div[@class = "js-ticket-row"]')
+    element2 = element.find_element_by_xpath('.//div[@class = "g-cell g-cell-1-1 g-cell-md-5-12 g-cell--no-gutters sorting-gripper-container l-padded-h-half l-block-2"]')
+    element3 = element2.find_element_by_xpath('.//input[@type = "text"]')
+    element3.send_keys('RSVP')
+    element4 = element.find_element_by_xpath('.//div[@class = "g-cell g-cell-1-2 g-cell-md-2-12 g-cell--no-gutters l-block-2 l-padded-h-half"]')
+    element5 = element4.find_element_by_xpath('.//input[@type = "text"]')
+    element5.send_keys('100')
+    element = driver.find_element_by_id('id_group-privacy_and_promotion-event_category')
+    element.send_keys('102')
+    element = driver.find_element_by_id('make-event-live-button-almost-done')
+    element.click()
+
+#element.send_keys('10/02/2015')
+#element = driver.find_element_by_class_name('js-dtp-timepicker-input time form__input--xshort js-timepicker-input')
+#element.send_keys('07:00pm')
+#element = driver.find_element_by_id('dp1442382194847')
+#element.send_keys('10/02/2015')
+#element = driver.find_element_by_class_name('js-dtp-timepicker-input time form__input--xshort js-timepicker-input')
+#element.send_keys('10:00pm')
+
